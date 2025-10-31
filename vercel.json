@@ -2,13 +2,12 @@
   "version": 2,
   "builds": [
     {
-      "src": "Backend/package.json",
+      "src": "Backend/index.js",
       "use": "@vercel/node"
     },
     {
       "src": "client/package.json",
-      "use": "@vercel/static-build",
-      "config": { "distDir": "client/dist" }
+      "use": "@vercel/static-build"
     }
   ],
   "rewrites": [
