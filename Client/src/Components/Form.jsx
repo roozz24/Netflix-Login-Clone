@@ -19,10 +19,10 @@ function Form() {
         if (event && event.preventDefault) event.preventDefault();
 
         try {
-            const res = await axios.post('http://localhost:3000/login', { email, password });
+            const res = await axios.post('/api/login', { email, password });
             console.log('login response:', res);
 
-            const ok = res?.data === true || res?.data?.success === true || res?.data?.auth === true;
+            const ok = res?.data?.success === true;
 
             if (ok) {
                 navigate('/success');
