@@ -19,7 +19,10 @@ function Form() {
         if (event && event.preventDefault) event.preventDefault();
 
         try {
-            const res = await axios.post('/api/login', { email, password });
+            const res = await axios.post('/api/login',
+                { email, password },
+                { headers: { 'Content-Type': 'application/json' } }
+            );
             console.log('login response:', res);
 
             const ok = res?.data?.success === true;
@@ -45,10 +48,10 @@ function Form() {
 
                 <header className="flex items-center justify-between p-6 max-w-6xl mx-auto w-full">
                     <div>
-                        <img 
-                        src="./images/netflix-logo.svg" 
-                        alt="Netflix Logo"
-                        className='w-48 h-36'
+                        <img
+                            src="./images/netflix-logo.svg"
+                            alt="Netflix Logo"
+                            className='w-48 h-36'
                         />
                     </div>
                     <div className="flex items-center space-x-4">

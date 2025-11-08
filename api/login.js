@@ -1,14 +1,24 @@
-export default function handler(req, res) {
+module.exports = async (req, res) => {
   if (req.method !== 'POST') {
-    res.status(405).end(); 
+    res.status(405).end();
     return;
   }
 
-  const { email, password } = req.body || {};
-  
-  const ok =
-    email === (process.env.LOGIN_EMAIL || 'roozo@123.com') &&
-    String(password) === String(process.env.LOGIN_PASSWORD || 123);
+  let body = req.body;
+  try {
+    if (!body || typeof body === 'string') body = body ? JSON.parse(body) : {};
+  } catch {
+    body = {};
+  }
 
-  res.status(200).json({ success: ok });
-}
+  const { email, password } = body;
+
+  const expectedEmail = process.env.LOGIN_EMAIL || 'roozo@123.com';
+  const expectedPassword = String(process.env.LOGIN_PASSWORD ?? 123);
+
+  const success = email === expectedEmail && String(password) === expectedPassword;
+
+  console.log('LOGIN body =>', body, 'success =>', success);
+
+  res.status(200).json({ success });
+};
